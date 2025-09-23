@@ -7,6 +7,7 @@
 ![Arquitectura del Sistema IoT](invernadero_infraestructura.png)
 
 
+
 ## 1. Descripción del Proyecto
 
 ### Problema Identificado
