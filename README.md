@@ -155,11 +155,41 @@ landslide/station1/control/test_alert
 
 ## 4. Validación en Cisco Packet Tracer
 
-### 4.1 Topologia de Red en Cisco Packet Tracer
-![Imagen de WhatsApp 2025-09-22 a las 15 52 18_b85718fb](https://github.com/user-attachments/assets/07394cbb-059e-4219-95ed-44982769c305)
+Con el fin de **validar la arquitectura antes de la implementación física**, utilizamos **Cisco Packet Tracer** como entorno de simulación.
 
-### 4.2 Validacion de conexion MQTT en Cisco Packet Tracer
-![Imagen de WhatsApp 2025-09-22 a las 15 53 46_d3d938c2](https://github.com/user-attachments/assets/068625f3-0a42-4de8-9e37-180fb1248eff)
+### 4.1 Topología de Red en Cisco Packet Tracer
+![Imagen de WhatsApp 2025-09-22 a las 15 52 18_aee95957](https://github.com/user-attachments/assets/58961c70-d5ba-4355-8cd4-a1862ffe4f08)
+
+**Descripción:**  
+Se implementó una red IoT con:  
+- Greenhouse Controller (SBC) conectado a sensores (movimiento, humedad, temperatura, agua, genérico) y actuadores (LCD, LEDs RGB y alarma).  
+- DLC100 como Gateway IoT que conecta la LAN de la estación de monitoreo a la red troncal.  
+- Dos routers (Router1 y Router2) interconectados mediante un enlace serial.  
+- Un broker MQTT simulado en un SBC en la red AWS (192.168.30.0/24).  
+- Server2 como servidor web para almacenar y visualizar los datos.  
+- Laptop para validación de conectividad y pruebas de publicación/suscripción MQTT.
+
+### 4.2 Validación de Conexión MQTT en Packet Tracer
+![Validación MQTT](https://github.com/user-attachments/assets/068625f3-0a42-4de8-9e37-180fb1248eff)  
+**Descripción:**  
+En esta prueba se configuraron los `main.py` de los SBCs para conectarse al **AWS IoT Broker (192.168.30.2:1883)**.  
+- El GreenhouseController logró **publicar métricas de sensores vía MQTT**.  
+- El broker enruta los mensajes a los tópicos definidos.  
+- El servidor en la LAN AWS recibe los datos para visualización.
+
+### 4.3 Retos en la Simulación con PT
+Aunque Packet Tracer no soporta todos los sensores/actuadores reales, se lograron aproximaciones útiles:  
+- **Inclinación (MPU6050)** → Simulado con **Generic Sensor**.  
+- **Humedad del suelo (YL-100)** → Simulado con **Water Sensor**.  
+- **Lluvia** → Representado con **Water Sensor/Generic ADC**.  
+- **Buzzer piezoeléctrico** → Simulado con **Alarm IoT device**.  
+- **LEDs de estado** → Representaron normal, precaución, alerta y emergencia.  
+
+**Problemas enfrentados:**  
+1. Errores de rutas estáticas hasta configurar correctamente los *next-hop* en Router1 y Router2.  
+2. Conexión MQTT fallida (Connection change type: 1) causada por gateway vacío en SBC o IP incorrecta del broker.  
+3. Limitación de sensores en PT, usando sustitutos (Generic, Water, Motion).  
+4. Sin soporte nativo LoRaWAN en PT: se simuló con Ethernet/IP manteniendo los mismos tópicos MQTT definidos en la propuesta real.
 
 ## 5. Ventajas de la Arquitectura LoRaWAN
 
