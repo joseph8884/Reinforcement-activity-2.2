@@ -154,7 +154,8 @@ landslide/station1/control/test_alert
 
 ## 4. Validación en Cisco Packet Tracer
 
-//aca falta poner el diagrama que se hizo y eso
+![Imagen de WhatsApp 2025-09-22 a las 15 52 18_b85718fb](https://github.com/user-attachments/assets/07394cbb-059e-4219-95ed-44982769c305)
+![Imagen de WhatsApp 2025-09-22 a las 15 53 46_d3d938c2](https://github.com/user-attachments/assets/068625f3-0a42-4de8-9e37-180fb1248eff)
 
 ## 5. Ventajas de la Arquitectura LoRaWAN
 
